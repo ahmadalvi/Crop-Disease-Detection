@@ -16,7 +16,7 @@ def download_images(object, number, folder):
     if not os.path.exists(folder):
         os.makedirs(folder)
     
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     driver.get("https://images.google.com")
 
     search_box = driver.find_element(By.NAME, 'q')
@@ -42,6 +42,7 @@ def download_images(object, number, folder):
 
     # Download images
     images = driver.find_elements(By.CLASS_NAME, "YQ4gaf")
+    images = images[2:]
     downloaded = 0
 
     for i, img in enumerate(images):
@@ -60,5 +61,3 @@ def download_images(object, number, folder):
                 print(f"Downloaded {downloaded}/{number} images")
         except Exception as e:
             print(f"Failed to download image {i+1}: {e}")
-
-download_images("dog", 10, "dog-pictures")
